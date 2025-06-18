@@ -1,0 +1,52 @@
+#include <stdio.h>
+
+int main() {
+    int arr[100], n, i, key, low, high, mid, found = 0;
+
+    // Input array size
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    // Input sorted array elements
+    printf("Enter %d sorted elements:\n", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Input the number to search
+    printf("Enter the number to search: ");
+    scanf("%d", &key);
+
+    low = 0;
+    high = n - 1;
+
+    // Binary Search
+    while (low <= high) {
+        mid = (low + high) / 2;
+
+        if (arr[mid] == key) {
+            printf("Number %d found at position %d (index %d).\n", key, mid + 1, mid);
+            found = 1;
+            break;
+        } else if (key < arr[mid]) {
+            high = mid - 1;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    if (!found) {
+        printf("Number %d not found in the array.\n", key);
+    }
+
+    return 0;
+}
+output
+Enter number of elements: 4
+Enter 4 sorted elements:
+1 2 3 4 
+Enter the number to search: 2
+Number 2 found at position 2 (index 1).
+
+
+=== Code Execution Successful ===
