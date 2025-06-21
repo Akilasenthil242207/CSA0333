@@ -1,0 +1,70 @@
+#include <stdio.h>
+
+// Function to swap two elements
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+// Partition function
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];  // choose last element as pivot
+    int i = low - 1;
+
+    for (int j = low; j <= high - 1; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+
+    swap(&arr[i + 1], &arr[high]);  // place pivot in correct position
+    return i + 1;
+}
+
+// QuickSort function
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        // partition the array
+        int pi = partition(arr, low, high);
+
+        // sort elements before and after partition
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+// Function to print the array
+void printArray(int arr[], int n) {
+    printf("Sorted array: ");
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    printf("\n");
+}
+
+// Main function
+int main() {
+    int arr[100], n;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    printf("Enter %d elements:\n", n);
+    for (int i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
+
+    quickSort(arr, 0, n - 1);
+    printArray(arr, n);
+
+    return 0;
+}
+output 
+AKILA 192424331
+Enter number of elements: 6
+Enter 6 elements:
+45 23 89 12 67 34
+Sorted array: 12 23 34 45 67 89 
+
+
+=== Code Execution Successful ===
