@@ -1,0 +1,155 @@
+#include <stdio.h>
+#define SIZE 10
+
+int hashTable[SIZE];
+
+// Initialize hash table with -1 indicating empty slot
+void initHashTable() {
+    for (int i = 0; i < SIZE; i++) {
+        hashTable[i] = -1;
+    }
+}
+
+// Hash function
+int hashFunction(int key) {
+    return key % SIZE;
+}
+
+// Insert using linear probing
+void insert(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    int i = 0;
+
+    while (hashTable[index] != -1) {
+        index = (originalIndex + ++i) % SIZE;
+        if (i == SIZE) {
+            printf("Hash table is full. Cannot insert %d\n", key);
+            return;
+        }
+    }
+
+    hashTable[index] = key;
+    printf("Inserted %d at index %d\n", key, index);
+}
+
+// Search using linear probing
+int search(int key) {
+    int index = hashFunction(key);
+    int originalIndex = index;
+    int i = 0;
+
+    while (hashTable[index] != -1) {
+        if (hashTable[index] == key) {
+            return index;
+        }
+        index = (originalIndex + ++i) % SIZE;
+        if (i == SIZE) break;
+    }
+
+    return -1;
+}
+
+// Display hash table
+void display() {
+    printf("Hash Table:\n");
+    for (int i = 0; i < SIZE; i++) {
+        printf("Index %d: ", i);
+        if (hashTable[i] != -1)
+            printf("%d\n", hashTable[i]);
+        else
+            printf("Empty\n");
+    }
+}
+
+// Main function
+int main() {
+    int choice, key;
+
+    initHashTable();
+
+    while (1) {
+        printf("\nHash Table Operations:\n");
+        printf("1. Insert\n");
+        printf("2. Search\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter key to insert: ");
+                scanf("%d", &key);
+                insert(key);
+                break;
+            case 2:
+                printf("Enter key to search: ");
+                scanf("%d", &key);
+                int result = search(key);
+                if (result != -1)
+                    printf("Key %d found at index %d\n", key, result);
+                else
+                    printf("Key %d not found\n", key);
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf("Exiting program.\n");
+                return 0;
+            default:
+                printf("Invalid choice. Try again.\n");
+        }
+    }
+
+    return 0;
+}
+output 
+192424331 AKILA
+Hash Table Operations:
+1. Insert
+2. Search
+3. Display
+4. Exit
+Enter your choice: 1
+Enter key to insert: 25
+Inserted 25 at index 5
+
+Hash Table Operations:
+1. Insert
+2. Search
+3. Display
+4. Exit
+Enter your choice: 1
+Enter key to insert: 35
+Inserted 35 at index 6
+
+Hash Table Operations:
+1. Insert
+2. Search
+3. Display
+4. Exit
+Enter your choice: 3
+Hash Table:
+Index 0: Empty
+Index 1: Empty
+Index 2: Empty
+Index 3: Empty
+Index 4: Empty
+Index 5: 25
+Index 6: 35
+Index 7: Empty
+Index 8: Empty
+Index 9: Empty
+
+Hash Table Operations:
+1. Insert
+2. Search
+3. Display
+4. Exit
+Enter your choice: 4
+Exiting program.
+
+
+=== Code Execution Successful ===
